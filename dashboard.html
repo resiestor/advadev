@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pawpet Dashboard</title>
   <style>
     body {
@@ -241,12 +242,61 @@
       border: 1px solid #aaa;
       font-size: 14px;
     }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        top: 0;
+        left: 0;
+        transform: translateY(-100%);
+      }
+
+      .sidebar.hidden {
+        transform: translateY(0);
+      }
+
+      .header {
+        margin-left: 0;
+        padding-top: 60px;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .buttons button {
+        width: 80%;
+      }
+
+      .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      iframe#map-frame {
+        height: 150px;
+      }
+
+      .sidebar-menu li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .toggle-sidebar-btn {
+        top: 10px;
+        left: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
 
-  <nav class="sidebar" id="sidebar">
+  <nav class="sidebar hidden" id="sidebar">
     <div class="sidebar-title">
       ⚙️ Settings
       <button class="close-btn" onclick="toggleSidebar()">✖</button>
@@ -316,12 +366,12 @@
   </div>
 
   <audio id="background-music" loop>
-    <source src="https://dev.sendyouart.my.id//uploads/681c2b4b0593d.mp3" type="audio/mpeg">
+    <source src="https://siswa.sman81.sch.id/assets/audio/halo81.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const kodeWilayah = {
-      "cipinang melayu": "31.75.08.1005",
+      "ubud": "51.04.05.1005",
       "halim": "31.75.08.1004"
     };
 
