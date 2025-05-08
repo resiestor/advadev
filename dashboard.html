@@ -288,16 +288,16 @@
   </div>
 
   <div class="weather-section">
-    <div class="location">LOKASI...</div>
-    <div class="temp">--°C</div>
-    <div class="humidity">--% HUMIDITY</div>
+    <div class="location" id="location">LOKASI...</div>
+    <div class="temp" id="temp">--°C</div>
+    <div class="humidity" id="humidity">--% HUMIDITY</div>
     <div class="map">
-      <iframe width="100%" height="120" style="border:0; border-radius:10px;" loading="lazy" src="https://maps.google.com/maps?q=Cipinang%20Melayu&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+      <iframe id="map-frame" width="100%" height="120" style="border:0; border-radius:10px;" loading="lazy" src="https://maps.google.com/maps?q=Cipinang%20Melayu&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
     </div>
     <div id="clock"></div>
     <div class="btn-group">
       <button>GREEN ZONE</button>
-      <button>PREDICT MOSQUITO!</button>
+      <button onclick="getWeather()">PREDICT MOSQUITO!</button>
       <button>NEAR HOSPITAL</button>
     </div>
   </div>
@@ -320,62 +320,64 @@
   </audio>
 
   <script>
-    const audio = document.getElementById("background-music");
-    document.getElementById("music-toggle").addEventListener("change", function () {
-      if (this.checked) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    });
+    const kodeWilayah = {
+      "cipinang melayu": "31.75.08.1005",
+      "halim": "31.75.08.1004"
+    };
 
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const header = document.getElementById('main-header');
-      sidebar.classList.toggle('hidden');
-      if (sidebar.classList.contains('hidden')) {
-        document.body.style.marginLeft = '0';
-        header.style.marginLeft = '0';
-      } else {
-        document.body.style.marginLeft = '230px';
-        header.style.marginLeft = '230px';
-      }
-    }
+    function getWeather() {
+      const lokasiElem = document.getElementById("location");
+      const tempElem = document.getElementById("temp");
+      const humidityElem = document.getElementById("humidity");
+      const kodeInput = document.getElementById("kode-input").value.trim().toLowerCase();
 
-    function submitKodeWilayah() {
-      const kode = document.getElementById('kode-input').value.trim();
-      if (!kode) {
-        alert("Silakan masukkan kode wilayah terlebih dahulu.");
+      if (!kodeWilayah[kodeInput]) {
+        lokasiElem.textContent = "Kota tidak ditemukan";
         return;
       }
 
-      fetch(`https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=${kode}`)
+      const kode = kodeWilayah[kodeInput];
+      const url = `https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=${kode}`;
+
+      fetch(url)
         .then(res => res.json())
         .then(data => {
-          const wilayah = data.data.nama ?? "LOKASI";
-          const suhu = data?.data?.params?.find(p => p.id === "t")?.times[0]?.value ?? "--";
-          const hu = data?.data?.params?.find(p => p.id === "hu")?.times[0]?.value ?? "--";
-
-          document.querySelector(".location").textContent = wilayah.toUpperCase();
-          document.querySelector(".temp").textContent = suhu + "°C";
-          document.querySelector(".humidity").textContent = hu + "% HUMIDITY";
+          const cuacaList = data?.data?.[0]?.cuaca?.[0];
+          if (cuacaList && cuacaList.length > 0) {
+            const cuaca = cuacaList[0];
+            lokasiElem.textContent = kodeInput.toUpperCase();
+            tempElem.textContent = `${cuaca.t || '--'}°C`;
+            humidityElem.textContent = `${cuaca.hu || '--'}% HUMIDITY`;
+          } else {
+            lokasiElem.textContent = "Data tidak tersedia";
+          }
         })
         .catch(err => {
-          console.error("Gagal mengambil data dari kode wilayah:", err);
-          alert("Data cuaca tidak tersedia untuk kode tersebut.");
+          lokasiElem.textContent = "Gagal memuat data";
         });
     }
 
-    function updateClock() {
-      const clock = document.getElementById("clock");
-      const now = new Date();
-      const jam = now.getHours().toString().padStart(2, "0");
-      const menit = now.getMinutes().toString().padStart(2, "0");
-      const detik = now.getSeconds().toString().padStart(2, "0");
-      clock.textContent = `${jam}:${menit}:${detik}`;
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+
+    function submitKodeWilayah() {
+      getWeather();
+    }
+
+    // Jam real time
+    setInterval(() => {
+      const now = new Date();
+      const jam = now.toLocaleTimeString();
+      document.getElementById("clock").textContent = jam;
+    }, 1000);
+
+    // Musik toggle
+    const audio = document.getElementById("background-music");
+    document.getElementById("music-toggle").addEventListener("change", function () {
+      this.checked ? audio.play() : audio.pause();
+    });
   </script>
 </body>
 </html>
