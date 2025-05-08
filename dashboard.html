@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pawpet Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -25,10 +25,11 @@
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
       z-index: 1000;
       transition: transform 0.3s ease;
+      transform: translateX(-100%);
     }
 
     .sidebar.hidden {
-      transform: translateX(-100%);
+      transform: translateX(0);
     }
 
     .sidebar-title {
@@ -243,23 +244,25 @@
       font-size: 14px;
     }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .sidebar {
-        width: 100%;
-        height: auto;
-        top: 0;
-        left: 0;
-        transform: translateY(-100%);
+        transform: translateX(-100%);
+        width: 230px;
+        height: 100vh;
       }
 
       .sidebar.hidden {
-        transform: translateY(0);
+        transform: translateX(0);
       }
 
       .header {
         margin-left: 0;
         padding-top: 60px;
+      }
+
+      .toggle-sidebar-btn {
+        top: 10px;
+        left: 10px;
       }
 
       .buttons {
@@ -285,18 +288,13 @@
         flex-direction: column;
         align-items: flex-start;
       }
-
-      .toggle-sidebar-btn {
-        top: 10px;
-        left: 10px;
-      }
     }
   </style>
 </head>
 <body>
   <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
 
-  <nav class="sidebar hidden" id="sidebar">
+  <nav class="sidebar" id="sidebar">
     <div class="sidebar-title">
       ⚙️ Settings
       <button class="close-btn" onclick="toggleSidebar()">✖</button>
@@ -416,14 +414,12 @@
       getWeather();
     }
 
-    // Jam real time
     setInterval(() => {
       const now = new Date();
       const jam = now.toLocaleTimeString();
       document.getElementById("clock").textContent = jam;
     }, 1000);
 
-    // Musik toggle
     const audio = document.getElementById("background-music");
     document.getElementById("music-toggle").addEventListener("change", function () {
       this.checked ? audio.play() : audio.pause();
