@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DECADEMY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      background-color: #fff6e5;
+      background-image: url('./image/bgloading.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .decademy-container {
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .back-button {
+      background-color: #3f2560;
+      color: white;
+      border: none;
+      font-size: 1.5em;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    .title-badge {
+      background: linear-gradient(to right, #8a4b3e, #dca18e);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      color: #402e1e;
+    }
+
+    .quiz-question-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-box, .question-box {
+      flex: 1;
+      background-color: white;
+      border-radius: 20px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .quiz-box:hover, .question-box:hover {
+      background-color: #f8ede3;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    .question-box input {
+      border: none;
+      outline: none;
+      font-size: 1em;
+      width: 100%;
+    }
+
+    .topic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .topic-item {
+      background-color: white;
+      border-radius: 20px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .topic-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 1em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      margin-right: 15px;
+    }
+
+    .brown {
+      background-color: #5d3310;
+    }
+
+    .purple {
+      background-color: #3f2560;
+    }
+
+    .topic-content {
+      flex: 1;
+    }
+
+    .topic-title {
+      font-weight: bold;
+      color: #5d3310;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      border: 2px solid #5d3310;
+      border-radius: 10px;
+      position: relative;
+      background-color: white;
+    }
+
+    .progress-circle {
+      width: 14px;
+      height: 14px;
+      background-color: #5d3310;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: left 0.5s ease;
+    }
+
+    .download-button {
+      background: none;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-left: 10px;
+      color: #5d3310;
+    }
+
+    .download-button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <div class="decademy-container">
+
+    <div class="header">
+      <button class="back-button">&#8592;</button>
+      <div class="title-badge">DECADEMY</div>
+    </div>
+    <div class="subtitle">
+      Learn more about dengue epidemics!
+    </div>
+
+    <div class="quiz-question-row">
+      <div class="quiz-box" onclick="handleQuizClick()">
+        <img src="./image/quiz-icon.png" class="icon" alt="Quiz Icon" />
+        <div class="quiz-text">
+          <strong>Quiz!</strong><br/>
+          <small>Gain rewards!</small>
+        </div>
+      </div>
+      <div class="question-box">
+        <img src="./image/search-icon.png" class="icon" alt="Search Icon" />
+        <input type="text" placeholder="Type here" onkeydown="handleQuestion(event)" />
+      </div>
+    </div>
+
+    <div class="topic-list">
+      <div class="topic-item">
+        <div class="topic-number brown">1</div>
+        <div class="topic-content">
+          <div class="topic-title">Dengue Transmission</div>
+          <div class="progress-bar">
+            <div class="progress-circle"></div>
+          </div>
+        </div>
+        <button class="download-button" onclick="completeTopic(this)">⬇</button>
+      </div>
+
+      <div class="topic-item">
+        <div class="topic-number brown">2</div>
+        <div class="topic-content">
+          <div class="topic-title">Multidisciplinary Impact</div>
+          <div class="progress-bar">
+            <div class="progress-circle"></div>
+          </div>
+        </div>
+        <button class="download-button" onclick="completeTopic(this)">⬇</button>
+      </div>
+
+      <div class="topic-item">
+        <div class="topic-number purple">3</div>
+        <div class="topic-content">
+          <div class="topic-title">Dengue Handling</div>
+          <div class="progress-bar">
+            <div class="progress-circle"></div>
+          </div>
+        </div>
+        <button class="download-button" onclick="completeTopic(this)">⬇</button>
+      </div>
+
+      <div class="topic-item">
+        <div class="topic-number purple">4</div>
+        <div class="topic-content">
+          <div class="topic-title">Daily Personal Steps</div>
+          <div class="progress-bar">
+            <div class="progress-circle"></div>
+          </div>
+        </div>
+        <button class="download-button" onclick="completeTopic(this)">⬇</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function completeTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const progressBar = topicItem.querySelector('.progress-bar');
+      const circle = progressBar.querySelector('.progress-circle');
+      circle.style.left = 'calc(100% - 16px)';
+      button.innerText = '✅';
+      button.disabled = true;
+    }
+
+    function handleQuestion(event) {
+      if (event.key === 'Enter') {
+        const question = event.target.value.trim();
+        if (question.length > 0) {
+          alert(`You asked: "${question}"`);
+          event.target.value = '';
+        }
+      }
+    }
+
+    function handleQuizClick() {
+      alert("Opening quiz... (feature under development)");
+    }
+  </script>
+</body>
+</html>

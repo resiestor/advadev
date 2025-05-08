@@ -1,0 +1,168 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background-color: #fff6e5;
+    background-image: url('./image/bgloading.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Container */
+  .decademy-container {
+    padding: 20px;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .back-button {
+    background-color: #3f2560;
+    color: white;
+    border: none;
+    font-size: 1.5em;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .title-badge {
+    background: linear-gradient(to right, #8a4b3e, #dca18e);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
+  /* Subtitle */
+  .subtitle {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #402e1e;
+  }
+  
+  /* Quiz and Question */
+  .quiz-question-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .quiz-box, .question-box {
+    flex: 1;
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .quiz-box:hover, .question-box:hover {
+    background-color: #f8ede3;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  .question-box input {
+    border: none;
+    outline: none;
+    font-size: 1em;
+    width: 100%;
+  }
+  
+  /* Topic List */
+  .topic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .topic-item {
+    background-color: white;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .topic-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 15px;
+  }
+  
+  .brown {
+    background-color: #5d3310;
+  }
+  
+  .purple {
+    background-color: #3f2560;
+  }
+  
+  .topic-content {
+    flex: 1;
+  }
+  
+  .topic-title {
+    font-weight: bold;
+    color: #5d3310;
+    margin-bottom: 8px;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 20px;
+    border: 2px solid #5d3310;
+    border-radius: 10px;
+    position: relative;
+    background-color: white;
+  }
+  
+  .progress-circle {
+    width: 14px;
+    height: 14px;
+    background-color: #5d3310;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.5s ease;
+  }
+  
+  .download-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #5d3310;
+  }
+  
+  .download-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  

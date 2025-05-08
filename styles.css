@@ -1,0 +1,65 @@
+/* Import Google Font - Atkinson Hyperlegible */
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  background-color: #fff4cc;
+  background-image: url('./image/bgloading.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-container {
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  animation: bounce 2s infinite;
+}
+
+.loading-text {
+  margin-top: 20px;
+  font-size: 2em;
+  color: #444;
+  animation: blink 1.5s infinite;
+}
+
+/* Bounce animation for logo */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Blink animation for text */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Fade-in animation for container */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
