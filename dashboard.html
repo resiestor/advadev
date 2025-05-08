@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pawpet Dashboard</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #fbc75a, #fff);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      transition: margin-left 0.3s ease;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 230px;
+      background-color: #ffde53;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar-menu li {
+      margin: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .sidebar-menu a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 20px;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: .4s;
+    }
+
+    .switch input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .toggle-sidebar-btn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background-color: #ffde53;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1100;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-btn {
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      background: none;
+      border: none;
+    }
+
+    .header {
+      padding: 10px;
+      margin-left: 230px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .title {
+      background: orange;
+      display: inline-block;
+      padding: 5px 20px;
+      color: white;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    .level-info {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .weather-section {
+      background: white;
+      border-radius: 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .location {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .temp {
+      font-size: 40px;
+      color: #4c0000;
+    }
+
+    .humidity {
+      font-size: 18px;
+    }
+
+    #clock {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .map {
+      margin: 15px 0;
+    }
+
+    .btn-group button {
+      background: #823636;
+      color: white;
+      border: none;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .pawpet-section {
+      background: #ccc6f6;
+      padding: 15px;
+      border-radius: 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .status-bar {
+      height: 15px;
+      background: red;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+
+    .start-btn {
+      background-color: #45a4d1;
+      color: white;
+    }
+
+    .study-btn {
+      background-color: #a2c3e6;
+      color: black;
+    }
+
+    .sidebar-menu li input[type="text"] {
+      width: 100%;
+      margin-top: 5px;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</button>
+
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-title">
+      ⚙️ Settings
+      <button class="close-btn" onclick="toggleSidebar()">✖</button>
+    </div>
+    <ul class="sidebar-menu">
+      <li>
+        Music
+        <label class="switch">
+          <input type="checkbox" id="music-toggle">
+          <span class="slider"></span>
+        </label>
+      </li>
+      <li>
+        Sound
+        <label class="switch">
+          <input type="checkbox" id="sound-toggle">
+          <span class="slider"></span>
+        </label>
+      </li>
+      <li>
+        Vibration
+        <label class="switch">
+          <input type="checkbox" id="vibration-toggle">
+          <span class="slider"></span>
+        </label>
+      </li>
+      <li style="flex-direction: column; align-items: flex-start;">
+        <label for="kode-input">Kode Wilayah:</label>
+        <input type="text" id="kode-input" placeholder="Masukkan kode">
+        <button onclick="submitKodeWilayah()" style="margin-top:5px; padding:5px 10px; font-size:13px; background:#4caf50; color:white; border:none; border-radius:5px; cursor:pointer;">Submit</button>
+      </li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+  </nav>
+
+  <div class="header" id="main-header">
+    <div class="title">ARAH</div>
+    <div class="level-info">Lv. 10 | PONDS: 100</div>
+  </div>
+
+  <div class="weather-section">
+    <div class="location">LOKASI...</div>
+    <div class="temp">--°C</div>
+    <div class="humidity">--% HUMIDITY</div>
+    <div class="map">
+      <iframe width="100%" height="120" style="border:0; border-radius:10px;" loading="lazy" src="https://maps.google.com/maps?q=Cipinang%20Melayu&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+    </div>
+    <div id="clock"></div>
+    <div class="btn-group">
+      <button>GREEN ZONE</button>
+      <button>PREDICT MOSQUITO!</button>
+      <button>NEAR HOSPITAL</button>
+    </div>
+  </div>
+
+  <div class="pawpet-section">
+    <h3>YOUR PAWPET</h3>
+    <img src="https://via.placeholder.com/100x100" alt="Pawpet" />
+    <div class="status-bar"></div>
+    <div>Current Mood: 😊</div>
+    <button>HATCH</button>
+  </div>
+
+  <div class="buttons">
+    <button class="start-btn">START</button>
+    <button class="study-btn">STUDY!</button>
+  </div>
+
+  <audio id="background-music" loop>
+    <source src="https://dev.sendyouart.my.id//uploads/681c2b4b0593d.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const audio = document.getElementById("background-music");
+    document.getElementById("music-toggle").addEventListener("change", function () {
+      if (this.checked) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const header = document.getElementById('main-header');
+      sidebar.classList.toggle('hidden');
+      if (sidebar.classList.contains('hidden')) {
+        document.body.style.marginLeft = '0';
+        header.style.marginLeft = '0';
+      } else {
+        document.body.style.marginLeft = '230px';
+        header.style.marginLeft = '230px';
+      }
+    }
+
+    function submitKodeWilayah() {
+      const kode = document.getElementById('kode-input').value.trim();
+      if (!kode) {
+        alert("Silakan masukkan kode wilayah terlebih dahulu.");
+        return;
+      }
+
+      fetch(`https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4=${kode}`)
+        .then(res => res.json())
+        .then(data => {
+          const wilayah = data.data.nama ?? "LOKASI";
+          const suhu = data?.data?.params?.find(p => p.id === "t")?.times[0]?.value ?? "--";
+          const hu = data?.data?.params?.find(p => p.id === "hu")?.times[0]?.value ?? "--";
+
+          document.querySelector(".location").textContent = wilayah.toUpperCase();
+          document.querySelector(".temp").textContent = suhu + "°C";
+          document.querySelector(".humidity").textContent = hu + "% HUMIDITY";
+        })
+        .catch(err => {
+          console.error("Gagal mengambil data dari kode wilayah:", err);
+          alert("Data cuaca tidak tersedia untuk kode tersebut.");
+        });
+    }
+
+    function updateClock() {
+      const clock = document.getElementById("clock");
+      const now = new Date();
+      const jam = now.getHours().toString().padStart(2, "0");
+      const menit = now.getMinutes().toString().padStart(2, "0");
+      const detik = now.getSeconds().toString().padStart(2, "0");
+      clock.textContent = `${jam}:${menit}:${detik}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
