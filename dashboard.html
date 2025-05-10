@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <div id="humidity-zone" class="humidity-zone">Green Zone</div>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <meta charset="UTF-8" />
   <title>Pawpet Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
+
+    .humidity-zone {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.green-zone {
+  color: green;
+}
+
+.yellow-zone {
+  color: yellow;
+}
+
+.red-zone {
+  color: red;
+}
     
     body {
       font-family: 'Arial', sans-serif;
@@ -754,8 +773,71 @@
   "pulau harapan": "31.01.01.1003",
   "pulau untung jawa": "31.01.02.1001",
   "pulau tidung": "31.01.02.1002",
-  "pulau pari": "31.01.02.1003"
-};
+  "pulau pari": "31.01.02.1003",
+
+  //Kota Yogyakarta
+  "tegalrejo": "34.71.01",
+  "kricak": "34.71.01.1001",
+  "karangwaru": "34.71.01.1002",
+  "tegalrejo_kel": "34.71.01.1003",
+  "bener": "34.71.01.1004",
+  "jetis": "34.71.02",
+  "bumijo": "34.71.02.1001",
+  "cokrodiningratan": "34.71.02.1002",
+  "gowongan": "34.71.02.1003",
+  "gondokusuman": "34.71.03",
+  "demangan": "34.71.03.1001",
+  "kotabaru": "34.71.03.1002",
+  "klitren": "34.71.03.1003",
+  "baciro": "34.71.03.1004",
+  "terban": "34.71.03.1005",
+  "danurejan": "34.71.04",
+  "suryatmajan": "34.71.04.1001",
+  "tegalpanggung": "34.71.04.1002",
+  "bausasran": "34.71.04.1003",
+  "gedongtengen": "34.71.05",
+  "sosromenduran": "34.71.05.1001",
+  "pringgokusuman": "34.71.05.1002",
+  "ngampilan": "34.71.06",
+  "ngampilan_kel": "34.71.06.1001",
+  "notoprajan": "34.71.06.1002",
+  "wirobrajan": "34.71.07",
+  "pakuncen": "34.71.07.1001",
+  "wirobrajan_kel": "34.71.07.1002",
+  "patangpuluhan": "34.71.07.1003",
+  "mantrijeron": "34.71.08",
+  "gedongkiwo": "34.71.08.1001",
+  "suryodiningratan": "34.71.08.1002",
+  "mantrijeron_kel": "34.71.08.1003",
+  "kraton": "34.71.09",
+  "patehan": "34.71.09.1001",
+  "panembahan": "34.71.09.1002",
+  "kadipaten": "34.71.09.1003",
+  "gondomanan": "34.71.10",
+  "ngupasan": "34.71.10.1001",
+  "prawirodirjan": "34.71.10.1002",
+  "pakualaman": "34.71.11",
+  "purwokinanti": "34.71.11.1001",
+  "gunungketur": "34.71.11.1002",
+  "mergangsan": "34.71.12",
+  "keparakan": "34.71.12.1001",
+  "wirogunan": "34.71.12.1002",
+  "brontokusuman": "34.71.12.1003",
+  "umbulharjo": "34.71.13",
+  "semaki": "34.71.13.1001",
+  "muja muju": "34.71.13.1002",
+  "tahunan": "34.71.13.1003",
+  "warungboto": "34.71.13.1004",
+  "pandeyan": "34.71.13.1005",
+  "sorosutan": "34.71.13.1006",
+  "giwangan": "34.71.13.1007",
+  "kotagede": "34.71.14",
+  "rejowinangun": "34.71.14.1001",
+  "prenggan": "34.71.14.1002",
+  "purbayan": "34.71.14.1003"
+}
+
+;
 
     function getWeather() {
       const lokasiElem = document.getElementById("location");
