@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DECADEMY</title>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       margin: 0;
@@ -244,21 +245,21 @@
 
   <script>
     function completeTopic(button) {
-      alert("This feature is under development.");
+      Swal.fire("This feature is under development.");
     }
 
     function handleQuestion(event) {
       if (event.key === 'Enter') {
         const question = event.target.value.trim();
         if (question.length > 0) {
-          alert(`You asked: "${question}"`);
+          Swal.fire(`You asked: "${question}"`);
           event.target.value = '';
         }
       }
     }
 
     function handleQuizClick() {
-      alert("Opening quiz... (feature under development)");
+      Swal.fire("This feature is under development.");
     }
   </script>
 </body>
